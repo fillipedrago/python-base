@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/gitpod/.pyenv/shims/python
 """Imprime a tabuada do 1 ao 10.
 
 ---Tabuada do 1---
