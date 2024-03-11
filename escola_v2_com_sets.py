@@ -14,6 +14,7 @@ aula_ingles = ["Erik", "Maia", "Joana", "Carlos", "Antonio"]
 aula_musica = ["Erik", "Carlos", "Maria"]
 aula_danca = ["Gustavo", "Sofia", "Joana", "Antonio"]
 
+# Lista com 3 tuplas
 atividades = [
     ("Inglês", aula_ingles), 
     ("Música", aula_musica), 
