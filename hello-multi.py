@@ -11,20 +11,51 @@ Tenha a variável LANG devidamente configurada, ex:
 
     export LANG=pt_BR
 
+Ou informe através do CLI argument '--lang'
+
+Ou o usuário terá que digitar
+
 Execução:
 
     python3 hello.py
     ou
     ./hello.py
 """
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 __author__ = "Fillipe Drago"
 __license__ = "Unlicensed"
 
 import os
+import sys
 
-# a segunda entrada da variável getenv é o valor retornado seja nulo             
-current_language = os.getenv("LANG", "en_US")[:5]
+
+arguments = {"lang": None,"count": 1,}
+# pega os argumentos da lsita do sys.argv do indice 1 pra frente 
+# (não pega o nome do programa)
+
+# as entradas na execucao apos o nome do programa entram na sys.argv
+for arg in sys.argv[1:]:
+    # TODO: Tratar ValueError
+    key, value = arg.split("=")
+    key = key.lstrip("-").strip() # tirando traços do inicio e espaços
+    value = value.strip() # tirando espaços
+    if key not in arguments:
+        print(f"Invalid Option ´{key}´")
+        sys.exit() # programa para de executar
+    arguments[key] = value
+
+            
+current_language = arguments["lang"]
+
+# a segunda entrada da variável getenv é o valor retornado seja nulo 
+if current_language is None:    
+    # TODO: Usar repetição
+    if "LANG" in os.environ:
+        current_language = os.getenv("LANG")
+    else:
+        current_language = input("Choose a language:")
+
+current_language = current_language[:5]
 
 
 # sets (Hash Table) - O(1) - constante
@@ -34,7 +65,7 @@ msg = {
     "en_US":"Hello World!",
     "pt_BR": "Olá, mundo!",
     "es_SP": "Hola, Mundo!",
-    "fr_FR": "Bonjour Monde",
+    "fr_FR": "Bonjour, Monde!",
     "it_IT": "Ciao, Mondo!",
 }
 
@@ -50,4 +81,7 @@ msg = {
 #     msg = "Bonjour Monde"
 
 # O(1) - constante
-print(msg[current_language]) #dicionario[chave]
+
+print(
+    msg[current_language] * #dicionario[chave]
+    int(arguments["count"])) #por padrao o input vem em texto
