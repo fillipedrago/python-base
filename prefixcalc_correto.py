@@ -1,6 +1,36 @@
+"""Calculadora Prefix.
+
+Funcionamento:
+
+[operação] [n1] [n2]
+
+Operações:
+sum -> +
+sub -> -
+mul -> *
+div -> /
+
+Uso:
+$ prefixcalc.py sum 5 2
+7
+
+$ prefixcalc.py mul 10 5
+50
+
+$ prefixcalc.py
+operação: sum
+n1: 5
+n2: 4
+9
+
+Os resultados serão salvos em 'infixcalc.log'
+"""
+
 __version__ = "0.1.0"
 
+import os
 import sys
+from datetime import datetime
 
 arguments = sys.argv[1:]
 
@@ -45,5 +75,16 @@ elif operation == "mul":
     result = n1 * n2
 elif operation == "div":
     result = n1 / n2
+
+
+path = os.curdir
+filepath = os.path.join(path, "infixcalc.log")
+timestamp = datetime.now().isoformat()
+user = os.getenv('USER', 'anonymous')
+
+with open(filepath, "a") as file_:
+    file_.write(f"{timestamp} - {user} - {operation}, {n1}, {n2} = {result}\n")
+
+# print(f"{operation}, {n1}, {n2} = {result}, file = filepath)
 
 print(f"O resultado é {result}")

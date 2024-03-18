@@ -12,7 +12,10 @@ email_tmpl = """
    ...: 
    ...: Preço promocional %(preco).2f
    ...: """
-clientes = ["Maria", "Joao", "Bruno"]
+
+import os 
+
+# clientes = ["Maria", "Joao", "Bruno"]
 
 for cliente in clientes:
     print(
