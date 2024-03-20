@@ -23,6 +23,11 @@ import sys
 
 # print(names[2])
 
+try:
+    raise RuntimeError("Ocorreu um erro")
+except Exception as e:
+    print(str(e))
+
 
 # EAFP - Easier to Ask Forgiveness than Permission
 try:
