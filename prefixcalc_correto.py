@@ -23,7 +23,7 @@ n1: 5
 n2: 4
 9
 
-Os resultados serão salvos em 'infixcalc.log'
+Os resultados serão salvos em 'prefixcalc.log'
 """
 
 __version__ = "0.1.0"
@@ -34,6 +34,7 @@ from datetime import datetime
 
 arguments = sys.argv[1:]
 
+# Validacao
 if not arguments:
     operation = input("operação:")
     n1 = input("n1:")
@@ -63,7 +64,12 @@ for num in nums:
         num = int(num)
     validated_nums.append(num)
 
-n1, n2 = validated_nums
+try:
+    n1, n2 = validated_nums
+except ValueError as e:
+    print(str(e))
+    sys.exit(1)
+
 
 # TODO: usar dicionário de funções
 
@@ -78,13 +84,19 @@ elif operation == "div":
 
 
 path = os.curdir
-filepath = os.path.join(path, "infixcalc.log")
+filepath = os.path.join(path, "prefixcalc.log")
 timestamp = datetime.now().isoformat()
 user = os.getenv('USER', 'anonymous')
 
-with open(filepath, "a") as file_:
-    file_.write(f"{timestamp} - {user} - {operation}, {n1}, {n2} = {result}\n")
+print(f"O resultado é {result}")
+
+try:
+    with open(filepath, "a") as file_:
+        file_.write(f"{timestamp} - {user} - {operation}, {n1}, {n2} = {result}\n")
+except PermissionError as e:
+    # TODO: logging
+    print(str(e))
+    sys.exit(1)
 
 # print(f"{operation}, {n1}, {n2} = {result}, file = filepath)
 
-print(f"O resultado é {result}")

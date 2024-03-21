@@ -36,12 +36,23 @@ arguments = {"lang": None,"count": 1,}
 # as entradas na execucao apos o nome do programa entram na sys.argv
 for arg in sys.argv[1:]:
     # TODO: Tratar ValueError
-    key, value = arg.split("=")
+    try:
+        key, value = arg.split("=")
+    except ValueError as e:
+        # TODO: Logging
+        print(f"[ERROR] {str(e)}")
+        print("You need to use `=`")
+        print(f"You passed {arg}")
+        print("try with --key=value")
+        sys.exit(1)
+
     key = key.lstrip("-").strip() # tirando traços do inicio e espaços
     value = value.strip() # tirando espaços
+
     if key not in arguments:
         print(f"Invalid Option ´{key}´")
         sys.exit() # programa para de executar
+    
     arguments[key] = value
 
             
@@ -82,6 +93,13 @@ msg = {
 
 # O(1) - constante
 
+try:
+    message = msg[current_language] # dicionario[chave]
+except KeyError as e:
+    print(f"[ERROR] {str(e)}")
+    print(f"Language is invalid, choose from: {list(msg.keys())}")
+    sys.exit(1)
+
 print(
-    msg[current_language] * #dicionario[chave]
+    message * 
     int(arguments["count"])) #por padrao o input vem em texto
