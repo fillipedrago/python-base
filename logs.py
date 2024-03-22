@@ -1,27 +1,31 @@
 #!/home/gitpod/.pyenv/shims/python
 import os
 import logging
-
+from logging import handlers
 
 # BOILERPLATE
 # TODO: usar função
 # TODO: usar lib (loguru)
 
-# Criando nova instância, que não é mais o root logger:
 log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
-# instancia
 log = logging.Logger("logs", logging.DEBUG)
-# level
-ch = logging.StreamHandler() # Console/terminal/stderr
-ch.setLevel(log_level)
-# formatacao
-fmt = logging.Formatter(
+# ch = logging.StreamHandler() # Console/terminal/stderr
+# ch.setLevel(log_level)
+fh = handlers.RotatingFileHandler(
+    "meulog.log", 
+    maxBytes=10**6, # max bytes padrão é 10**6, que é 1 MB
+    backupCount=10, # quantidade de arquivos salvos de backup
+    ) 
+
+fh.setLevel(log_level)
+fmt = logging.Formatter( 
     '%(asctime)s %(name)s %(levelname)s '
     'l:%(lineno)d f:%(filename)s: %(message)s'
 )
-ch.setFormatter(fmt)
-#destino
-log.addHandler(ch)
+# ch.setFormatter(fmt)
+fh.setFormatter(fmt)
+# log.addHandler(ch)
+log.addHandler(fh)
 
 
 

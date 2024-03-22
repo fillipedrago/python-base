@@ -49,6 +49,7 @@ operation, *nums = arguments
 
 valid_operations = ("sum", "sub", "mul", 'div')
 if operation not in valid_operations:
+    # TODO Logging
     print("Operação inválida")
     print(valid_operations)
     sys.exit(1)
@@ -56,6 +57,7 @@ if operation not in valid_operations:
 validated_nums = []
 for num in nums:
     if not num.replace(".", "").isdigit():
+        # TODO Logging
         print(f"Numero inválido {num}")
         sys.exit(1)
     if "." in num:
@@ -94,7 +96,7 @@ try:
     with open(filepath, "a") as file_:
         file_.write(f"{timestamp} - {user} - {operation}, {n1}, {n2} = {result}\n")
 except PermissionError as e:
-    # TODO: logging
+    # TODO: Logging
     print(str(e))
     sys.exit(1)
 

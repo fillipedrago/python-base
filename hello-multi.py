@@ -27,6 +27,18 @@ __license__ = "Unlicensed"
 
 import os
 import sys
+import logging
+
+log_level = os.getenv("LOG_LEVEL", "WARNING").upper()
+log = logging.Logger("logs", logging.DEBUG)
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+fmt = logging.Formatter(
+    '%(asctime)s %(name)s %(levelname)s '
+    'l:%(lineno)d f:%(filename)s: %(message)s'
+)
+ch.setFormatter(fmt)
+log.addHandler(ch)
 
 
 arguments = {"lang": None,"count": 1,}
@@ -39,11 +51,15 @@ for arg in sys.argv[1:]:
     try:
         key, value = arg.split("=")
     except ValueError as e:
-        # TODO: Logging
-        print(f"[ERROR] {str(e)}")
-        print("You need to use `=`")
-        print(f"You passed {arg}")
-        print("try with --key=value")
+        log.error(
+            "You need to use `=`, you passed %s, try --key=value %s",
+            arg, 
+            str(e)
+        )
+        # print(f"[ERROR] {str(e)}")
+        # print("You need to use `=`")
+        # print(f"You passed {arg}")
+        # print("try with --key=value")
         sys.exit(1)
 
     key = key.lstrip("-").strip() # tirando traços do inicio e espaços
