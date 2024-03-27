@@ -19,12 +19,13 @@ import sys
 path = os.curdir
 filepath = os.path.join(path, "notes.txt")
 
+cmds = ("read", "new")
+
 arguments = sys.argv[1:]
 if not arguments:
     print("Invalid usage")
     sys.exit(1)
 
-cmds = ("read", "new")
 
 if arguments[0] not in cmds:
     print(f"Invalid command {argument[0]}")
