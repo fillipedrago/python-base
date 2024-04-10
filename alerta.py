@@ -34,6 +34,9 @@ info = {
 
 log = logging.Logger("alerta")
 
+
+
+
 while True:
     info_size = len(info.values())
     filled_size = len([value for value in info.values() if value is not None])

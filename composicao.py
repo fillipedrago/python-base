@@ -1,3 +1,6 @@
+""" Imrpime apenas os nomes iniciados com a letra B"""
+
+
 names = [
     "Bruno",
     "Joao",
@@ -6,11 +9,4 @@ names = [
     "Brian"
 ]
 
-# TODO: Usar lambda
-
-# Função de composição
-
-def starts_with_b(text):
-    return text[0].lower() == "b"
-
-print(*list(filter(starts_with_b, names)))
+print(*list(filter(lambda name: name[0].lower() == "b", names)), sep="\n")
